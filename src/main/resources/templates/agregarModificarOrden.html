@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaft.org">
+<head>
+    <title>Orden</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+
+</head>
+<body>
+<div class="container mt-4">
+    <div class="col-sm-6">
+        <div th:if="${modo eq 'nuevo'}">
+            <form th:action="@{/guardarOrden}" th:object="${orden}" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Orden</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input type="hidden" name="idOrden" th:field="*{idOrden}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Fecha documento</label>
+                            <input class="form-control me-2 mt-3" type="date" name="fechaDocumento" th:value="orden.fechaDocumento" placeholder="Fecha Orden"/>
+
+                            <div th:if="${errorFecha}">
+                                <p class="alert alert-danger" th:text="${errorFecha}"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Vehiculo</label>
+
+                            <select class="form-control" id="vehiculo" name="vehiculo" required>
+                                <option value="" disabled selected>Selecciona un Vehiculo</option>
+                                <option th:each="vehiculo : ${vehiculos}" th:value="${vehiculo.idVehiculo}" th:text="${vehiculo.patente}" th:selected="${orden.vehiculo != null and vehiculo.idVehiculo == orden.vehiculo.idVehiculo}"></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Kilometros</label>
+                            <input class="form-control" type="text" name="kilometrosVehiculo" placeholder="Ingrese el kilometraje del vehiculo" th:field="*{kilometros}" />
+                            <span th:if="${#fields.hasErrors('kilometros')}" th:errors="*{kilometros}"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Tecnico</label>
+
+                            <select class="form-control" id="tecnico" name="tecnico" required>
+                                <option value="" disabled selected>Selecciona un Tecnico</option>
+                                <option th:each="tecnico : ${tecnicos}" th:value="${tecnico.idTecnico}" th:text="${tecnico.nombre}+' - Legajo: '+${tecnico.legajo}" th:selected="${orden.tecnico != null and tecnico.idTecnico == orden.tecnico.idTecnico}"></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="estadoOrden" th:field="*{estado}"/>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <!--                    <input type="submit" value="Guardar" th:if="${modo == 'nuevo'}">
+                                            <input type="submit" value="Actualizar" th:if="${modo == 'editar'}"> -->
+
+                    
+
+                    <div id="ordenId" data-orden-id="orden" style="display: none;"></div>
+                    
+                    <div class="form-group" style="display: none;">
+                        <label for="agregarDetalles">¿Desea agregar detalles de la orden?</label>
+                        <select id="agregarDetalles" name="agregarDetalles">
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <br>
+
+                    <button type="submit" id="guardarOrden" class="btn btn-success ">Guardar</button>
+                    <a  class="btn btn-danger" th:href="@{/ordenes}">Regresar</a>
+                        
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+
+        <!--Actualizar-->
+        <div th:if="${modo eq 'editar'}">
+            <form th:action="@{/actualizarOrden}" th:object="${orden}" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Orden</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input type="hidden" name="idOrden" th:field="*{idOrden}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Fecha documento</label>
+                            <input class="form-control" type="date" name="fechaDocumento" th:value="${fechaDocumento}" placeholder="Fecha Orden"/>
+                            
+                            <div th:if="${errorFecha}">
+                                <p class="alert alert-danger" th:text="${errorFecha}"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Vehiculo</label>
+
+                            <select class="form-control" id="vehiculo" name="vehiculo" required>
+                                <option value="" disabled selected>Selecciona un Vehiculo</option>
+                                <option th:each="vehiculo : ${vehiculos}" th:value="${vehiculo.idVehiculo}" th:text="${vehiculo.patente}" th:selected="${orden.vehiculo != null and vehiculo.idVehiculo == orden.vehiculo.idVehiculo}"></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Kilometros</label>
+                            <input class="form-control" type="text" name="kilometrosVehiculo" placeholder="Ingrese el kilometraje del vehiculo" th:field="*{kilometros}" />
+                            <span th:if="${#fields.hasErrors('kilometros')}" th:errors="*{kilometros}"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Tecnico</label>
+
+                            <select class="form-control" id="tecnico" name="tecnico" required>
+                                <option value="" disabled selected>Selecciona un Tecnico</option>
+                                <option th:each="tecnico : ${tecnicos}" th:value="${tecnico.idTecnico}" th:text="${tecnico.nombre}+' - Legajo: '+${tecnico.legajo}" th:selected="${orden.tecnico != null and tecnico.idTecnico == orden.tecnico.idTecnico}"></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: bold;">Estado Actual</label>
+
+                            <select class="form-control" id="estadoActual" name="estadoActual" required>
+                                <option value="" disabled selected>Selecciona un Estado</option>
+                                <option th:each="estadoActual : ${estadosActuales}" th:value="${estadoActual.idEstado}" th:text="${estadoActual.nombre}" th:selected="${orden.estadoActual != null and estadoActual.idEstado == orden.estadoActual.idEstado}"></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="estadoOrden" th:field="*{estado}"/>
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+                        <!--                    <input type="submit" value="Guardar" th:if="${modo == 'nuevo'}">
+                                            <input type="submit" value="Actualizar" th:if="${modo == 'editar'}"> -->
+                        <button type="submit" class="btn btn-success">Actualizar</button>
+                        <a  class="btn btn-danger" th:href="@{/ordenes}">Regresar</a>
+                        
+                    </div>
+                </div>
+                
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const guardarOrdenButton = document.getElementById('guardarOrden');
+
+        guardarOrdenButton.addEventListener('click', function (event) {
+            event.preventDefault(); // Evita que se envíe el formulario 
+
+            // Realiza la validación en el lado del servidor antes de mostrar el cuadro de diálogo
+            const formulario = guardarOrdenButton.closest('form');
+            if (formulario.checkValidity()) {
+                Swal.fire({
+                    title: '¿Desea agregar detalles a la orden?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Agregar Detalles',
+                    cancelButtonText: 'No Agregar Detalles'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario confirmó, establece el valor del campo "agregarDetalles" en "si"
+                        document.getElementById('agregarDetalles').value = 'si';
+                        // Envía el formulario
+                        formulario.submit();
+                    } else {
+                        // Si el usuario no confirmó, establece el valor del campo "agregarDetalles" en "no" y luego envía el formulario
+                        document.getElementById('agregarDetalles').value = 'no';
+                        formulario.submit();
+                    }
+                });
+            } else {
+                // Si la validación en el lado del servidor falla, muestra los errores
+                Swal.fire('Errores de validación', 'Por favor, complete correctamente los campos requeridos.', 'error');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
