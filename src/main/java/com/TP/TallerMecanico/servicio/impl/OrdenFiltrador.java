@@ -1,7 +1,9 @@
-package com.TP.TallerMecanico.servicio;
+package com.TP.TallerMecanico.servicio.impl;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.TP.TallerMecanico.servicio.IOrdenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.TP.TallerMecanico.entidad.Orden;
