@@ -1,4 +1,4 @@
-package com.TP.TallerMecanico.servicio;
+package com.TP.TallerMecanico.servicio.impl;
 
 import com.TP.TallerMecanico.entidad.DetalleOrden;
 import com.TP.TallerMecanico.entidad.Orden;
@@ -6,6 +6,7 @@ import com.TP.TallerMecanico.entidad.Servicio;
 import com.TP.TallerMecanico.interfaz.IDetalleOrdenDao;
 import java.util.List;
 import com.TP.TallerMecanico.interfaz.IOrdenDao;
+import com.TP.TallerMecanico.servicio.IDetalleOrdenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

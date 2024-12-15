@@ -1,10 +1,13 @@
-package com.TP.TallerMecanico.servicio;
+package com.TP.TallerMecanico.servicio.impl;
 
 import com.TP.TallerMecanico.entidad.Marca;
 import com.TP.TallerMecanico.entidad.Modelo;
 import com.TP.TallerMecanico.interfaz.IMarcaDao;
 import com.TP.TallerMecanico.interfaz.IModeloDao;
 import java.util.List;
+
+import com.TP.TallerMecanico.servicio.IMarcaService;
+import com.TP.TallerMecanico.servicio.IModeloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

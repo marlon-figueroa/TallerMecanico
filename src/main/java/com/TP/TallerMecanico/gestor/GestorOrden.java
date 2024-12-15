@@ -4,6 +4,8 @@ import com.TP.TallerMecanico.entidad.*;
 import com.TP.TallerMecanico.interfaz.IDetalleOrdenDao;
 import com.TP.TallerMecanico.interfaz.IOrdenDao;
 import com.TP.TallerMecanico.servicio.*;
+import com.TP.TallerMecanico.servicio.impl.OrdenFiltrador;
+import com.TP.TallerMecanico.servicio.impl.OrdenImplementacion;
 import com.TP.TallerMecanico.util.FacturaExporterPDF;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;

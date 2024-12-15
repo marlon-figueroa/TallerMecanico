@@ -1,9 +1,11 @@
-package com.TP.TallerMecanico.servicio;
+package com.TP.TallerMecanico.servicio.impl;
 
 import com.TP.TallerMecanico.entidad.Tecnico;
 import com.TP.TallerMecanico.interfaz.ITecnicoDao;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.TP.TallerMecanico.servicio.ITecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

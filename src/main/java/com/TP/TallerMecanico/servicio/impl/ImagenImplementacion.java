@@ -1,8 +1,9 @@
-package com.TP.TallerMecanico.servicio;
+package com.TP.TallerMecanico.servicio.impl;
 
 import com.TP.TallerMecanico.entidad.Imagen;
 import com.TP.TallerMecanico.entidad.Orden;
 import com.TP.TallerMecanico.interfaz.IImagenDao;
+import com.TP.TallerMecanico.servicio.IImagenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
